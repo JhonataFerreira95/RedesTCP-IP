@@ -8,6 +8,8 @@
     - Para que o esqueleto da aplicação seja gerado no navegador web, utilizamos o `html.erb`, básicamente utilizar o html com compatibilidade com ruby.
 - Css3
     - Para estilização básica do servidor web, aplicamos `css`, para algo mais agradável aos olhos.
+- Ncap
+    - Para que a gem `packetgen` e `pcaprub` funcione, é necessário a instalação Ncap, para capturar pacotes no windows.
 
 ## Estrutura do projeto
 
