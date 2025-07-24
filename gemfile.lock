@@ -1,0 +1,28 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bin_struct (0.5.1)
+    digest-crc (0.7.0)
+      rake (>= 12.0.0, < 14.0.0)
+    interfacez (1.0.4)
+    packetgen (4.1.0)
+      bin_struct (~> 0.5.0)
+      digest-crc (~> 0)
+      interfacez (~> 1.0)
+      pcaprub (~> 0.13.0)
+      rasn1 (~> 0.14)
+    pcaprub (0.13.3)
+    rake (13.3.0)
+    rasn1 (0.16.0)
+      strptime (~> 0.2.5)
+    strptime (0.2.5)
+
+PLATFORMS
+  x64-mingw-ucrt
+
+DEPENDENCIES
+  packetgen (~> 4.1)
+  pcaprub (~> 0.13.3)
+
+BUNDLED WITH
+   2.6.9
