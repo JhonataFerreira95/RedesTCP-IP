@@ -1,3 +1,5 @@
 source "https://rubygems.org"
 
 gem 'packetgen', '~> 4.1'
+
+gem 'pcaprub', '~> 0.13.3'
