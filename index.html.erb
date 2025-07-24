@@ -1,41 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt" data-bs-theme="dark"> 
+
 <head>
+
   <meta charset="UTF-8">
-  <title>Monitor TCP/IP</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Capturado de pacotes web TCP-IP</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <style>
+
+    body {
+      background-color: #1a1a1a;
+    }
+    .table {
+      --bs-table-bg: #2b2b2b; 
+      --bs-table-striped-bg: #343a40; 
+      --bs-table-hover-bg: #495057; 
+    }
+    .table-dark {
+      --bs-table-border-color: #444;
+    }
+    .form-select {
+      background-color: #333;
+      border-color: #666;
+    }
+    .text-ruby {
+      color: #cc0000 !important; 
+    }
+    .bg-ruby-dark {
+      background-color: #990000 !important; 
+    }
+  </style>
+
 </head>
+
 <body>
-  <h1>Monitor de Pacotes TCP/IP</h1>
 
-  <form method="get">
-    <label>Filtrar por:</label>
-    <select name="filter" onchange="this.form.submit()">
-      <option value="all">Todos</option>
-      <option value="tcp">Apenas TCP</option>
-      <option value="ip">Apenas IP</option>
-    </select>
-  </form>
+  <div class="container mt-4">
+    <header class="text-center mb-4">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Origem</th>
-        <th>Destino</th>
-        <th>Protocolo</th>
-        <th>Timestamp</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% packets.each do |pkt| %>
-        <tr>
-          <td><%= pkt[:src] %></td>
-          <td><%= pkt[:dst] %></td>
-          <td><%= pkt[:protocol] %></td>
-          <td><%= pkt[:timestamp] %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+      <h1 class="display-5 text-ruby">Monitor de Pacotes TCP/IP</h1>
+      <p class="lead">Visualizador de tráfego de rede em tempo real</p>
+
+    </header>
+
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-6">
+        <form method="get" action="/" class="d-flex align-items-center">
+          <label for="filter" class="form-label me-2 mb-0">Filtrar por:</label>
+          <select name="filter" id="filter" class="form-select" onchange="this.form.submit()">
+            <option value="all" <%= 'selected' if current_filter == 'all' %>>Todos (IP)</option>
+            <option value="tcp" <%= 'selected' if current_filter == 'tcp' %>>Apenas TCP</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <div class="card bg-dark text-light">
+      <div class="card-header">
+        Exibindo <%= packets.count %> pacotes para o filtro: <span class="fw-bold text-ruby"><%= current_filter.upcase %></span>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-dark table-striped table-hover mb-0">
+            <thead class="bg-ruby-dark">
+              <tr>
+                <th scope="col">Timestamp</th>
+                <th scope="col">Protocolo</th>
+                <th scope="col">Origem</th>
+                <th scope="col">Destino</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if packets.empty? %>
+                <tr>
+                  <td colspan="4" class="text-center p-4">Nenhum pacote correspondente a este filtro foi capturado ainda.</td>
+                </tr>
+              <% else %>
+                <% packets.reverse_each do |pkt| %>
+                  <tr>
+                    <td><%= pkt[:timestamp] %></td>
+                    <td class="fw-bold"><%= pkt[:protocol] %></td>
+                    <td><%= pkt[:src] %></td>
+                    <td><%= pkt[:dst] %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center text-muted mt-4">
+      <p>Servidor rodando em Ruby. Atualize a página para ver novos pacotes.</p> <p>Desenvolvidor por <a href="https://github.com/JhonataFerreira95">@Jhonata</a> <a href="https://github.com/JG1511">| @João Guilherme | </a> <a href="https://github.com/MauricioSts">@Mauricio</a> </p>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
 </body>
 </html>
