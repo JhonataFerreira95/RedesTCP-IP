@@ -3,6 +3,7 @@ require 'packetgen'
 require 'erb'
 
 # Captura de pacotes (IP e TCP)
+
 $packets = []
 
 Thread.new do
