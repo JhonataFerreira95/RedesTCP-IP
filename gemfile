@@ -1,0 +1,3 @@
+source "https://rubygems.org"
+
+gem 'packetgen', '~> 4.1'

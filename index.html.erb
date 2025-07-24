@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Monitor TCP/IP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Monitor de Pacotes TCP/IP</h1>
+
+  <form method="get">
+    <label>Filtrar por:</label>
+    <select name="filter" onchange="this.form.submit()">
+      <option value="all">Todos</option>
+      <option value="tcp">Apenas TCP</option>
+      <option value="ip">Apenas IP</option>
+    </select>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Origem</th>
+        <th>Destino</th>
+        <th>Protocolo</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% packets.each do |pkt| %>
+        <tr>
+          <td><%= pkt[:src] %></td>
+          <td><%= pkt[:dst] %></td>
+          <td><%= pkt[:protocol] %></td>
+          <td><%= pkt[:timestamp] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>
